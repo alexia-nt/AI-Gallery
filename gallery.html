@@ -502,8 +502,27 @@
         const roomDepth = 40;
 
         // Floor and ceiling
-        createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, -roomHeight / 2, 0));
+        // createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, -roomHeight / 2, 0));
         createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, roomHeight / 2, 0));
+
+        // --- Modern textured floor ---
+        const textureLoader = new THREE.TextureLoader();
+        const floorTexture = textureLoader.load('textures/floor.jpg'); // Replace with any modern floor texture URL
+        floorTexture.wrapS = THREE.RepeatWrapping;
+        floorTexture.wrapT = THREE.RepeatWrapping;
+        floorTexture.repeat.set(10, 10); // Adjust how many times the texture repeats
+        floorTexture.anisotropy = 16; // Improves texture quality at angles
+
+        const floorGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
+        const floorMaterial = new THREE.MeshStandardMaterial({ 
+            map: floorTexture,
+            roughness: 0.6, // Matte look
+            metalness: 0.2  // Slight reflective feel
+        });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2; // Lay flat
+        floor.position.y = -roomHeight / 2 + 0.5; // Same height as old floor
+        scene.add(floor);
 
         // Walls
         createWall(1, roomHeight, roomDepth, 0x888888, new THREE.Vector3(-roomWidth / 2, 0, 0));
@@ -516,7 +535,7 @@
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
-        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        const pointLight = new THREE.PointLight(0xffffff, 0.5, 100);
         pointLight.position.set(0, roomHeight / 2 - 2, 0);
         scene.add(pointLight);
 
