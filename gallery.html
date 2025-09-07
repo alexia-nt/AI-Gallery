@@ -497,20 +497,20 @@
         }
 
         // Create the room
-        const roomWidth = 30;
-        const roomHeight = 15;
-        const roomDepth = 40;
+        const roomWidth = 40;
+        const roomHeight = 30;
+        const roomDepth = 50;
 
         // Floor and ceiling
         // createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, -roomHeight / 2, 0));
-        createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, roomHeight / 2, 0));
+        // createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, roomHeight / 2, 0));
 
         // --- Modern textured floor ---
         const textureLoader = new THREE.TextureLoader();
         const floorTexture = textureLoader.load('textures/floor1.jpg'); // Replace with any modern floor texture URL
         floorTexture.wrapS = THREE.RepeatWrapping;
         floorTexture.wrapT = THREE.RepeatWrapping;
-        floorTexture.repeat.set(3, 3); // Adjust how many times the texture repeats
+        floorTexture.repeat.set(4, 4); // Adjust how many times the texture repeats
         floorTexture.anisotropy = 16; // Improves texture quality at angles
 
         const floorGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
@@ -523,6 +523,30 @@
         floor.rotation.x = -Math.PI / 2; // Lay flat
         floor.position.y = -roomHeight / 2 + 0.5; // Same height as old floor
         scene.add(floor);
+
+        // Ceiling
+        
+        // 1. Load a ceiling texture
+        const ceilingTexture = textureLoader.load('textures/wall.jpg'); // Replace with your ceiling texture URL
+        ceilingTexture.wrapS = THREE.RepeatWrapping;
+        ceilingTexture.wrapT = THREE.RepeatWrapping;
+        ceilingTexture.repeat.set(3, 3); // Adjust repetition as needed
+        ceilingTexture.anisotropy = 16;
+
+        // 2. Create a material for the ceiling
+        const ceilingMaterial = new THREE.MeshStandardMaterial({
+            map: ceilingTexture,
+            roughness: 0.7, // slightly matte
+            metalness: 0.1
+        });
+        
+
+        // 3. Create a ceiling mesh
+        const ceilingGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
+        const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+        ceiling.rotation.x = Math.PI / 2; // Flip so it faces down
+        ceiling.position.y = roomHeight / 2; // Top of the room
+        scene.add(ceiling);
 
         // Walls
         // createWall(1, roomHeight, roomDepth, 0x888888, new THREE.Vector3(-roomWidth / 2, 0, 0));
@@ -575,7 +599,7 @@
         scene.add(pointLight);
 
         // Add pictures from the artworks array
-        const picSize = 5;
+        const picSize = 6; // 5
         const picHeight = 2;
         const halfPI = Math.PI / 2;
         
@@ -590,8 +614,8 @@
         createPicturePlane(artworks[4], picSize, picSize, new THREE.Vector3(roomWidth / 2 - 1, picHeight, 10), new THREE.Euler(0, -halfPI, 0));
 
         // Front Wall
-        createPicturePlane(artworks[0], picSize, picSize, new THREE.Vector3(-5, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
-        createPicturePlane(artworks[1], picSize, picSize, new THREE.Vector3(5, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
+        createPicturePlane(artworks[0], picSize, picSize, new THREE.Vector3(-7, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
+        createPicturePlane(artworks[1], picSize, picSize, new THREE.Vector3(7, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
 
         // Back Wall
         createPicturePlane(artworks[5], picSize, picSize, new THREE.Vector3(-5, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
