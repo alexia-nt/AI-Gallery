@@ -507,10 +507,10 @@
 
         // --- Modern textured floor ---
         const textureLoader = new THREE.TextureLoader();
-        const floorTexture = textureLoader.load('textures/floor.jpg'); // Replace with any modern floor texture URL
+        const floorTexture = textureLoader.load('textures/floor1.jpg'); // Replace with any modern floor texture URL
         floorTexture.wrapS = THREE.RepeatWrapping;
         floorTexture.wrapT = THREE.RepeatWrapping;
-        floorTexture.repeat.set(7, 7); // Adjust how many times the texture repeats
+        floorTexture.repeat.set(3, 3); // Adjust how many times the texture repeats
         floorTexture.anisotropy = 16; // Improves texture quality at angles
 
         const floorGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
