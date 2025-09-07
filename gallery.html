@@ -510,7 +510,7 @@
         const floorTexture = textureLoader.load('textures/floor.jpg'); // Replace with any modern floor texture URL
         floorTexture.wrapS = THREE.RepeatWrapping;
         floorTexture.wrapT = THREE.RepeatWrapping;
-        floorTexture.repeat.set(10, 10); // Adjust how many times the texture repeats
+        floorTexture.repeat.set(7, 7); // Adjust how many times the texture repeats
         floorTexture.anisotropy = 16; // Improves texture quality at angles
 
         const floorGeometry = new THREE.PlaneGeometry(roomWidth, roomDepth);
@@ -525,10 +525,45 @@
         scene.add(floor);
 
         // Walls
-        createWall(1, roomHeight, roomDepth, 0x888888, new THREE.Vector3(-roomWidth / 2, 0, 0));
-        createWall(1, roomHeight, roomDepth, 0x888888, new THREE.Vector3(roomWidth / 2, 0, 0));
-        createWall(roomWidth, roomHeight, 1, 0x888888, new THREE.Vector3(0, 0, -roomDepth / 2));
-        createWall(roomWidth, roomHeight, 1, 0x888888, new THREE.Vector3(0, 0, roomDepth / 2));
+        // createWall(1, roomHeight, roomDepth, 0x888888, new THREE.Vector3(-roomWidth / 2, 0, 0));
+        // createWall(1, roomHeight, roomDepth, 0x888888, new THREE.Vector3(roomWidth / 2, 0, 0));
+        // createWall(roomWidth, roomHeight, 1, 0x888888, new THREE.Vector3(0, 0, -roomDepth / 2));
+        // createWall(roomWidth, roomHeight, 1, 0x888888, new THREE.Vector3(0, 0, roomDepth / 2));
+
+        // --- Textured Walls ---
+
+        // Load wall textures
+        const wallTexture = textureLoader.load('textures/wall.jpg'); // Replace with any modern wall texture URL
+        wallTexture.wrapS = THREE.RepeatWrapping;
+        wallTexture.wrapT = THREE.RepeatWrapping;
+        wallTexture.repeat.set(4, 2); // Adjust based on your room size
+
+        // Create a material with the texture
+        const wallMaterial = new THREE.MeshStandardMaterial({ 
+            map: wallTexture,
+            roughness: 0.7,
+            metalness: 0.1
+        });
+
+        // Function to create textured walls
+        function createTexturedWall(width, height, depth, position, rotation) {
+            const geometry = new THREE.BoxGeometry(width, height, depth);
+            const wall = new THREE.Mesh(geometry, wallMaterial);
+            wall.position.copy(position);
+            
+            if (rotation) {
+                wall.rotation.copy(rotation);
+            }
+            
+            scene.add(wall);
+            return wall;
+        }
+
+        // Walls
+        createTexturedWall(1, roomHeight, roomDepth, new THREE.Vector3(-roomWidth / 2, 0, 0));
+        createTexturedWall(1, roomHeight, roomDepth, new THREE.Vector3(roomWidth / 2, 0, 0));
+        createTexturedWall(roomWidth, roomHeight, 1, new THREE.Vector3(0, 0, -roomDepth / 2));
+        createTexturedWall(roomWidth, roomHeight, 1, new THREE.Vector3(0, 0, roomDepth / 2));
 
 
         // Lighting
