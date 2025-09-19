@@ -418,7 +418,7 @@
         // Artwork data
         const artworks = [
             {
-                url: 'Images/1.jpeg',
+                url: 'Artworks/1.jpeg',
                 title: '1. A Brand New Start',
                 poem: 'One step away, the world rewinds,\nyet forward pulls the tethered mind.\nDreams outweigh the fear of loss.'
             },
@@ -497,9 +497,9 @@
         }
 
         // Create the room
-        const roomWidth = 40;
-        const roomHeight = 30;
-        const roomDepth = 50;
+        const roomWidth = 60;
+        const roomHeight = 40;
+        const roomDepth = 80;
 
         // Floor and ceiling
         // createWall(roomWidth, 1, roomDepth, 0x555555, new THREE.Vector3(0, -roomHeight / 2, 0));
@@ -599,29 +599,43 @@
         scene.add(pointLight);
 
         // Add pictures from the artworks array
-        const picSize = 6; // 5
-        const picHeight = 2;
+        const picSize = 10; // 5
+        const picHeight = -3;
         const halfPI = Math.PI / 2;
         
         // Left Wall
-        createPicturePlane(artworks[9], picSize, picSize, new THREE.Vector3(-roomWidth / 2 + 1, picHeight, -10), new THREE.Euler(0, halfPI, 0));
+        createPicturePlane(artworks[9], picSize, picSize, new THREE.Vector3(-roomWidth / 2 + 1, picHeight, -20), new THREE.Euler(0, halfPI, 0));
         createPicturePlane(artworks[8], picSize, picSize, new THREE.Vector3(-roomWidth / 2 + 1, picHeight, 0), new THREE.Euler(0, halfPI, 0));
-        createPicturePlane(artworks[7], picSize, picSize, new THREE.Vector3(-roomWidth / 2 + 1, picHeight, 10), new THREE.Euler(0, halfPI, 0));
+        createPicturePlane(artworks[7], picSize, picSize, new THREE.Vector3(-roomWidth / 2 + 1, picHeight, 20), new THREE.Euler(0, halfPI, 0));
 
         // Right Wall
-        createPicturePlane(artworks[2], picSize, picSize, new THREE.Vector3(roomWidth / 2 - 1, picHeight, -10), new THREE.Euler(0, -halfPI, 0));
+        createPicturePlane(artworks[2], picSize, picSize, new THREE.Vector3(roomWidth / 2 - 1, picHeight, -20), new THREE.Euler(0, -halfPI, 0));
         createPicturePlane(artworks[3], picSize, picSize, new THREE.Vector3(roomWidth / 2 - 1, picHeight, 0), new THREE.Euler(0, -halfPI, 0));
-        createPicturePlane(artworks[4], picSize, picSize, new THREE.Vector3(roomWidth / 2 - 1, picHeight, 10), new THREE.Euler(0, -halfPI, 0));
+        createPicturePlane(artworks[4], picSize, picSize, new THREE.Vector3(roomWidth / 2 - 1, picHeight, 20), new THREE.Euler(0, -halfPI, 0));
 
         // Front Wall
-        createPicturePlane(artworks[0], picSize, picSize, new THREE.Vector3(-7, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
-        createPicturePlane(artworks[1], picSize, picSize, new THREE.Vector3(7, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
+        createPicturePlane(artworks[0], picSize, picSize, new THREE.Vector3(-12, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
+        createPicturePlane(artworks[1], picSize, picSize, new THREE.Vector3(12, picHeight, -roomDepth / 2 + 1), new THREE.Euler(0, 0, 0));
 
         // Back Wall
-        createPicturePlane(artworks[5], picSize, picSize, new THREE.Vector3(-5, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
-        createPicturePlane(artworks[6], picSize, picSize, new THREE.Vector3(5, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
+        createPicturePlane(artworks[5], picSize, picSize, new THREE.Vector3(-19, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
+        createPicturePlane(artworks[6], picSize, picSize, new THREE.Vector3(19, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
 
-        camera.position.set(0, picHeight, 0);
+        // Door in the center of the back wall
+        const doorTexture = textureLoader.load('Images/door.png');
+        const doorGeometry = new THREE.PlaneGeometry(18, 28); // width, height (make it taller than artworks)
+        const doorMaterial = new THREE.MeshBasicMaterial({ map: doorTexture });
+        const door = new THREE.Mesh(doorGeometry, doorMaterial);
+
+        door.position.set(0, -6, roomDepth / 2 - 1); // X=0 (center), Y=5 (floor alignment), Z=back wall
+        door.rotation.y = Math.PI; // face into the room
+
+        scene.add(door);
+
+        // camera.position.set(0, picHeight, 0);
+
+        const eyeHeight = 15; // player’s eye level above the floor
+        camera.position.set(0, -roomHeight / 2 + eyeHeight, 0);
 
         // --- Raycasting for interaction ---
         const raycaster = new THREE.Raycaster();
