@@ -622,9 +622,14 @@
         createPicturePlane(artworks[6], picSize, picSize, new THREE.Vector3(19, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
 
         // Door in the center of the back wall
-        const doorTexture = textureLoader.load('Images/door.png');
-        const doorGeometry = new THREE.PlaneGeometry(18, 28); // width, height (make it taller than artworks)
-        const doorMaterial = new THREE.MeshBasicMaterial({ map: doorTexture });
+        const doorTexture = textureLoader.load('Images/door2.png');
+        const doorGeometry = new THREE.PlaneGeometry(30, 30); // width, height (make it taller than artworks)
+        // const doorMaterial = new THREE.MeshBasicMaterial({ map: doorTexture });
+        const doorMaterial = new THREE.MeshBasicMaterial({ 
+            map: doorTexture,
+            transparent: true,   // allow transparency
+            alphaTest: 0.5       // discard fully transparent pixels
+        });
         const door = new THREE.Mesh(doorGeometry, doorMaterial);
 
         door.position.set(0, -6, roomDepth / 2 - 1); // X=0 (center), Y=5 (floor alignment), Z=back wall
