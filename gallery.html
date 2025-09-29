@@ -702,6 +702,44 @@
             controls.lock(); // Re-lock controls after modal is closed
         });
 
+        // --------------------------------------------------------
+
+        // --- Footstep audio setup ---
+        const footstepFiles = [
+            'audio/footstep1.mp3',
+            'audio/footstep2.mp3',
+            'audio/footstep3.mp3'
+        ];
+
+        let footstepAudio = new Audio();
+        footstepAudio.volume = 0.8;
+        footstepAudio.loop = true; // will loop while moving
+        let isWalking = false;
+
+        // Function to start footsteps
+        function startFootsteps() {
+            if (!isWalking) {
+                // Pick a random footstep sound
+                const file = footstepFiles[Math.floor(Math.random() * footstepFiles.length)];
+                footstepAudio.src = file;
+                footstepAudio.currentTime = 0;
+                footstepAudio.playbackRate = 1.1; // speed up the sound
+                footstepAudio.play();
+                isWalking = true;
+            }
+        }
+
+        // Function to stop footsteps
+        function stopFootsteps() {
+            if (isWalking) {
+                footstepAudio.pause();
+                footstepAudio.currentTime = 0; // reset to start
+                isWalking = false;
+            }
+        }
+
+        // --------------------------------------------------------
+
         // --- Game loop ---
         let prevTime = performance.now();
         function animate() {
@@ -722,6 +760,15 @@
 
             controls.moveRight(-velocity.x * delta);
             controls.moveForward(-velocity.z * delta);
+
+            // Determine if the player is moving
+            const moving = moveForward || moveBackward || moveLeft || moveRight;
+
+            if (moving) {
+                startFootsteps();
+            } else {
+                stopFootsteps();
+            }
             
             // --- ADDED CODE FOR BOUNDARY CHECKS ---
             const halfRoomWidth = roomWidth / 2;
