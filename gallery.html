@@ -639,6 +639,31 @@
 
         scene.add(door);
 
+        // -----------------------------------------------------
+
+        // Load lamp texture
+        const lampTexture = new THREE.TextureLoader().load('Images/lamp.png');
+
+        // Create a plane for the lamp
+        const lampMaterial = new THREE.MeshBasicMaterial({
+            map: lampTexture,
+            transparent: true,   // allow transparency in PNG
+            side: THREE.DoubleSide
+        });
+
+        const lampSize = 10; // adjust size as needed
+        const lamp = new THREE.Mesh(
+            new THREE.PlaneGeometry(lampSize, lampSize),
+            lampMaterial
+        );
+
+        // Position it on the ceiling, same as point light
+        lamp.position.set(0, roomHeight / 2 - 0.01, 0); // slightly below ceiling
+        lamp.rotation.x = Math.PI / 2; // face downward
+        scene.add(lamp);
+
+        // -----------------------------------------------------
+
         // camera.position.set(0, picHeight, 0);
 
         const eyeHeight = 15; // player’s eye level above the floor
