@@ -775,6 +775,22 @@
 
         // --------------------------------------------------------
 
+        // Load audio
+        const bgMusic = new Audio('audio/background.mp3');
+        bgMusic.loop = true;  // keep playing in a loop
+        bgMusic.volume = 0.5; // adjust volume (0.0 to 1.0)
+
+        // Toggle music with "M"
+        window.addEventListener('keydown', (event) => {
+            if (event.key.toLowerCase() === 'm') {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                } else {
+                    bgMusic.pause();
+                }
+            }
+        });
+
         // --- Game loop ---
         let prevTime = performance.now();
         function animate() {
@@ -902,21 +918,21 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Load audio
-        const bgMusic = new Audio('audio/background.mp3');
-        bgMusic.loop = true;  // keep playing in a loop
-        bgMusic.volume = 0.5; // adjust volume (0.0 to 1.0)
+        // // Load audio
+        // const bgMusic = new Audio('audio/background.mp3');
+        // bgMusic.loop = true;  // keep playing in a loop
+        // bgMusic.volume = 0.5; // adjust volume (0.0 to 1.0)
 
-        // Toggle music with "M"
-        window.addEventListener('keydown', (event) => {
-            if (event.key.toLowerCase() === 'm') {
-                if (bgMusic.paused) {
-                    bgMusic.play();
-                } else {
-                    bgMusic.pause();
-                }
-            }
-        });
+        // // Toggle music with "M"
+        // window.addEventListener('keydown', (event) => {
+        //     if (event.key.toLowerCase() === 'm') {
+        //         if (bgMusic.paused) {
+        //             bgMusic.play();
+        //         } else {
+        //             bgMusic.pause();
+        //         }
+        //     }
+        // });
     </script>
 </body>
 </html>
