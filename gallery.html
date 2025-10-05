@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Gallery Room</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <style>
         body {
             margin: 0;
@@ -664,6 +665,40 @@
 
         // -----------------------------------------------------
 
+        // --- Load GLB Model ---
+        const gltfLoader = new THREE.GLTFLoader();
+
+        gltfLoader.load('models/yourModel.glb', function(gltf) {
+            const model = gltf.scene;
+
+            model.position.set(15, -roomHeight / 2 + 11, 10);
+            model.scale.set(10, 10, 10);
+            model.rotation.y = Math.PI / 4;
+
+            // Force the model to be visible with basic materials
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    // Use MeshBasicMaterial which doesn't need lights
+                    child.material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff,
+                        map: child.material.map // preserve texture if it exists
+                    });
+                }
+            });
+
+            // Make it clickable
+            model.userData = {
+                title: "3D Sculpture",
+                poem: "A mysterious sculpture stands here,\ninviting contemplation and awe."
+            };
+            // galleryObjects.push(model);
+
+            scene.add(model);
+
+            // Create bounding box
+            modelBoundingBox = new THREE.Box3().setFromObject(model);
+        });
+
         // camera.position.set(0, picHeight, 0);
 
         const eyeHeight = 15; // player’s eye level above the floor
@@ -774,6 +809,59 @@
             const halfRoomWidth = roomWidth / 2;
             const halfRoomDepth = roomDepth / 2;
             const padding = 1.0; // A small buffer to prevent z-fighting with the walls
+            
+            // --- ADDED CODE FOR COLLISIONS ---
+            // 1. **GLB Model Collision Check**
+            if (modelBoundingBox) {
+                const playerPos = camera.position;
+                
+                // Create a smaller bounding box for collision (slightly smaller than the model)
+                const collisionBox = modelBoundingBox.clone();
+                const shrinkFactor = 0.8; // Adjust this value to change collision boundary size
+                collisionBox.min.multiplyScalar(shrinkFactor);
+                collisionBox.max.multiplyScalar(shrinkFactor);
+                
+                // Check if player is inside the collision box
+                if (collisionBox.containsPoint(playerPos)) {
+                    // Calculate the direction from model center to player
+                    const modelCenter = new THREE.Vector3();
+                    collisionBox.getCenter(modelCenter);
+                    const direction = new THREE.Vector3().subVectors(playerPos, modelCenter).normalize();
+                    
+                    // Find the closest face to push player out
+                    const distances = [
+                        Math.abs(playerPos.x - collisionBox.min.x),
+                        Math.abs(playerPos.x - collisionBox.max.x),
+                        Math.abs(playerPos.z - collisionBox.min.z),
+                        Math.abs(playerPos.z - collisionBox.max.z)
+                    ];
+                    
+                    const minDistance = Math.min(...distances);
+                    const minIndex = distances.indexOf(minDistance);
+                    
+                    // Push player out based on the closest face
+                    switch(minIndex) {
+                        case 0: // Left face
+                            camera.position.x = collisionBox.min.x - 0.1;
+                            break;
+                        case 1: // Right face
+                            camera.position.x = collisionBox.max.x + 0.1;
+                            break;
+                        case 2: // Front face
+                            camera.position.z = collisionBox.min.z - 0.1;
+                            break;
+                        case 3: // Back face
+                            camera.position.z = collisionBox.max.z + 0.1;
+                            break;
+                    }
+                    
+                    // Reset velocity to prevent continuous pushing
+                    velocity.x = 0;
+                    velocity.z = 0;
+                }
+            }
+            // --- END OF ADDED CODE ---
+            
 
             // Clamp the camera's X position
             if (camera.position.x < -halfRoomWidth + padding) {
