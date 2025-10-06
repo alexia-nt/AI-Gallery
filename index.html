@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Gallery Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="blocker">
+        <div id="instructions">
+            <p class="instruction-text">Click to Play</p>
+            <p class="instruction-controls">
+                Use WASD or arrow keys to move<br/>
+                Mouse to look around<br/>
+                Look for the green cursor to click a picture<br/>
+                ESC to exit<br/>
+                <br/>
+                Press M to toggle background music
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-container">
+        <div id="modal-content">
+            <img id="modal-image" src="" alt="Gallery Image">
+            <div id="modal-text">
+                <div id="modal-title"></div>
+                <div id="modal-poem"></div>
+            </div>
+            <span id="close-button">&times;</span>
+        </div>
+    </div>
+    
+    <div id="cursor"></div>
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Scripts -->
+    <script src="js/controls.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/room.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
