@@ -1,13 +1,13 @@
 class AudioManager {
     constructor() {
-        this.bgMusic = new Audio('audio/background.mp3');
+        this.bgMusic = new Audio('assets/audio/background.mp3');
         this.bgMusic.loop = true;
         this.bgMusic.volume = 0.5;
         
         this.footstepFiles = [
-            'audio/footstep1.mp3',
-            'audio/footstep2.mp3',
-            'audio/footstep3.mp3'
+            'assets/audio/footstep1.mp3',
+            'assets/audio/footstep2.mp3',
+            'assets/audio/footstep3.mp3'
         ];
         
         this.footstepAudio = new Audio();

@@ -65,7 +65,7 @@ class ModelManager {
         };
 
         return this.loadModel(
-            'models/yourModel.glb',
+            'assets/models/yourModel.glb',
             new THREE.Vector3(15, -roomHeight / 2 + 11, 10),
             10,
             new THREE.Euler(0, Math.PI / 4, 0),
@@ -80,7 +80,7 @@ class ModelManager {
         // Example: Load multiple decorative items
         const decorativeItems = [
             {
-                url: 'models/yourModel.glb',
+                url: 'assets/models/yourModel.glb',
                 position: new THREE.Vector3(-10, -roomDimensions.height / 2 + 5, 15),
                 scale: 3,
                 rotation: new THREE.Euler(0, Math.PI / 2, 0),

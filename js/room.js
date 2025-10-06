@@ -20,7 +20,7 @@ class Room {
 
     setupRoom(scene) {
         // Load wall textures
-        const wallTexture = this.textureLoader.load('textures/wall.jpg');
+        const wallTexture = this.textureLoader.load('assets/textures/wall.jpg');
         wallTexture.wrapS = THREE.RepeatWrapping;
         wallTexture.wrapT = THREE.RepeatWrapping;
         wallTexture.repeat.set(4, 2);
@@ -61,7 +61,7 @@ class Room {
         ));
 
         // Floor
-        const floorTexture = this.textureLoader.load('textures/floor1.jpg');
+        const floorTexture = this.textureLoader.load('assets/textures/floor1.jpg');
         floorTexture.wrapS = THREE.RepeatWrapping;
         floorTexture.wrapT = THREE.RepeatWrapping;
         floorTexture.repeat.set(4, 4);
@@ -80,7 +80,7 @@ class Room {
         scene.add(floor);
 
         // Ceiling
-        const ceilingTexture = this.textureLoader.load('textures/wall.jpg');
+        const ceilingTexture = this.textureLoader.load('assets/textures/wall.jpg');
         ceilingTexture.wrapS = THREE.RepeatWrapping;
         ceilingTexture.wrapT = THREE.RepeatWrapping;
         ceilingTexture.repeat.set(3, 3);
@@ -107,7 +107,7 @@ class Room {
         scene.add(pointLight);
 
         // Door
-        const doorTexture = this.textureLoader.load('images/door2.png');
+        const doorTexture = this.textureLoader.load('assets/images/door2.png');
         const doorGeometry = new THREE.PlaneGeometry(30, 30);
         const doorMaterial = new THREE.MeshBasicMaterial({ 
             map: doorTexture,
@@ -121,7 +121,7 @@ class Room {
         scene.add(door);
 
         // Lamp
-        const lampTexture = this.textureLoader.load('images/lamp.png');
+        const lampTexture = this.textureLoader.load('assets/images/lamp.png');
         const lampMaterial = new THREE.MeshBasicMaterial({
             map: lampTexture,
             transparent: true,

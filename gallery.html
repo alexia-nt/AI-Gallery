@@ -421,7 +421,7 @@
         // Artwork data
         const artworks = [
             {
-                url: 'artworks/1.jpeg',
+                url: 'assets/artworks/1.jpeg',
                 title: '1. A Brand New Start',
                 poem: 'One step away, the world rewinds,\nyet forward pulls the tethered mind.\nDreams outweigh the fear of loss.'
             },
@@ -510,7 +510,7 @@
 
         // --- Modern textured floor ---
         const textureLoader = new THREE.TextureLoader();
-        const floorTexture = textureLoader.load('textures/floor1.jpg'); // Replace with any modern floor texture URL
+        const floorTexture = textureLoader.load('assets/textures/floor1.jpg'); // Replace with any modern floor texture URL
         floorTexture.wrapS = THREE.RepeatWrapping;
         floorTexture.wrapT = THREE.RepeatWrapping;
         floorTexture.repeat.set(4, 4); // Adjust how many times the texture repeats
@@ -530,7 +530,7 @@
         // Ceiling
         
         // 1. Load a ceiling texture
-        const ceilingTexture = textureLoader.load('textures/wall.jpg'); // Replace with your ceiling texture URL
+        const ceilingTexture = textureLoader.load('assets/textures/wall.jpg'); // Replace with your ceiling texture URL
         ceilingTexture.wrapS = THREE.RepeatWrapping;
         ceilingTexture.wrapT = THREE.RepeatWrapping;
         ceilingTexture.repeat.set(3, 3); // Adjust repetition as needed
@@ -560,7 +560,7 @@
         // --- Textured Walls ---
 
         // Load wall textures
-        const wallTexture = textureLoader.load('textures/wall.jpg'); // Replace with any modern wall texture URL
+        const wallTexture = textureLoader.load('assets/textures/wall.jpg'); // Replace with any modern wall texture URL
         wallTexture.wrapS = THREE.RepeatWrapping;
         wallTexture.wrapT = THREE.RepeatWrapping;
         wallTexture.repeat.set(4, 2); // Adjust based on your room size
@@ -625,7 +625,7 @@
         createPicturePlane(artworks[6], picSize, picSize, new THREE.Vector3(19, picHeight, roomDepth / 2 - 1), new THREE.Euler(0, Math.PI, 0));
 
         // Door in the center of the back wall
-        const doorTexture = textureLoader.load('images/door2.png');
+        const doorTexture = textureLoader.load('assets/images/door2.png');
         const doorGeometry = new THREE.PlaneGeometry(30, 30); // width, height (make it taller than artworks)
         // const doorMaterial = new THREE.MeshBasicMaterial({ map: doorTexture });
         const doorMaterial = new THREE.MeshBasicMaterial({ 
@@ -643,7 +643,7 @@
         // -----------------------------------------------------
 
         // Load lamp texture
-        const lampTexture = new THREE.TextureLoader().load('images/lamp.png');
+        const lampTexture = new THREE.TextureLoader().load('assets/images/lamp.png');
 
         // Create a plane for the lamp
         const lampMaterial = new THREE.MeshBasicMaterial({
@@ -668,7 +668,7 @@
         // --- Load GLB Model ---
         const gltfLoader = new THREE.GLTFLoader();
 
-        gltfLoader.load('models/yourModel.glb', function(gltf) {
+        gltfLoader.load('assets/models/yourModel.glb', function(gltf) {
             const model = gltf.scene;
 
             model.position.set(15, -roomHeight / 2 + 11, 10);
@@ -741,9 +741,9 @@
 
         // --- Footstep audio setup ---
         const footstepFiles = [
-            'audio/footstep1.mp3',
-            'audio/footstep2.mp3',
-            'audio/footstep3.mp3'
+            'assets/audio/footstep1.mp3',
+            'assets/audio/footstep2.mp3',
+            'assets/audio/footstep3.mp3'
         ];
 
         let footstepAudio = new Audio();
@@ -776,7 +776,7 @@
         // --------------------------------------------------------
 
         // Load audio
-        const bgMusic = new Audio('audio/background.mp3');
+        const bgMusic = new Audio('assets/audio/background.mp3');
         bgMusic.loop = true;  // keep playing in a loop
         bgMusic.volume = 0.5; // adjust volume (0.0 to 1.0)
 
