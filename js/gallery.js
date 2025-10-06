@@ -2,7 +2,7 @@ class Gallery {
     constructor() {
         this.artworks = [
             {
-                url: 'Artworks/1.jpeg',
+                url: 'artworks/1.jpeg',
                 title: '1. A Brand New Start',
                 poem: 'One step away, the world rewinds,\nyet forward pulls the tethered mind.\nDreams outweigh the fear of loss.'
             },
