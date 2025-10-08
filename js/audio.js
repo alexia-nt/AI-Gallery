@@ -11,7 +11,7 @@ class AudioManager {
         ];
         
         this.footstepAudio = new Audio();
-        this.footstepAudio.volume = 0.8;
+        this.footstepAudio.volume = 1.0;
         this.footstepAudio.loop = true;
         this.isWalking = false;
     }
