@@ -9,47 +9,47 @@ class Gallery {
             {
                 url: 'assets/artworks/2.png',
                 title: '2. The First Night',
-                poem: 'These words are strange, the names untold,\nA simple errand feels so bold.\nA map of food I must now learn,\nFor simple comfort, I must yearn.'
+                poem: 'Shadows stretch across the floor,\nthe quiet hums of home no more.\nA small keepsake comforts what I miss.'
             },
             {
                 url: 'assets/artworks/3.png',
                 title: '3. The First Conversations',
-                poem: 'My thoughts are clear, my voice is not,\nEach phrase a struggle, a knotted plot.\nI search for words, they slip and slide,\nA different me I try to hide.'
+                poem: 'Strangers\' smiles both near and far,\na hesitant hand waves from afar.\nThe first brick of a new home.'
             },
             {
                 url: 'assets/artworks/4.png',
                 title: '4. The First Grocery Trip',
-                poem: 'A glass between this world and me,\nA sea of faces I can\'t see.\nThe city lights rush by in streaks,\nA silent story that the glass speaks.'
+                poem: 'Strange new signs and foreign brands,\na careful count of coins in hand.\nA new world bought one item at a time.'
             },
             {
                 url: 'assets/artworks/5.png',
                 title: '5. The Quiet Battle',
-                poem: 'The work waits here, the book is open,\nBut thoughts of home feel bittersweet, unspoken.\nA screen holds faces I can\'t touch,\nAnd oh, I miss their warmth so much.'
+                poem: 'Pages blur, the hours bend,\na mind that strains to comprehend.\nFueled by a promise I made.'
             },
             {
                 url: 'assets/artworks/6.png',
                 title: '6. Where the Walls Fall',
-                poem: 'One step away, the world rewinds,\nyet forward pulls the tethered mind.\nDreams outweigh the fear of loss.'
+                poem: 'Whispered stories, shared a laugh,\nthe turning point of a new path.\nWhere friendships start and walls fall down.'
             },
             {
                 url: 'assets/artworks/7.png',
                 title: '7. The Call Between Two Worlds',
-                poem: 'These new small habits, strange before,\nNow fit like keys to an unlocked door.\nThe awkward pause begins to fade,\nA simple life is being made.'
+                poem: 'Their smiles flicker, soft and near,\nyet vanish when the call grows clear.\nRoots can reach across the sea.'
             },
             {
                 url: 'assets/artworks/8.png',
                 title: '8. The Quiet Triumph',
-                poem: 'A passing scent, a sudden grace,\nTransported to a different place.\nA ghost of home that lingers on,\nA bittersweet and tender dawn.'
+                poem: 'Effort spent and trials faced,\nthe mark of struggle now embraced.\nA quiet triumph hums within.'
             },
             {
                 url: 'assets/artworks/9.png',
                 title: '9. The Shared Table',
-                poem: 'My story\'s threads begin to weave,\nNew friends and family I receive.\nA chosen home, a second chance,\nTo join the rhythm, learn the dance.'
+                poem: 'Voices mingle, stories unfold,\nwarmth blossoms in the midst of cold.\nNew roots grow where kindness clings.'
             },
             {
                 url: 'assets/artworks/10.png',
                 title: '10. The Changed Man',
-                poem: 'I stand before the self I\'ve grown,\nThe path I\'ve walked, the seeds I\'ve sown.\nMy past and future, side by side,\nBetween two worlds, I now reside.'
+                poem: 'The snow falls soft on paths I\'ve known,\na changed man now stands alone.\nTwo worlds are woven in my soul.'
             }
         ];
         
