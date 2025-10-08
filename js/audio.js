@@ -5,9 +5,9 @@ class AudioManager {
         this.bgMusic.volume = 0.5;
         
         this.footstepFiles = [
-            'assets/audio/footstep1.mp3',
-            'assets/audio/footstep2.mp3',
-            'assets/audio/footstep3.mp3'
+            'assets/audio/footstep4.mp3',
+            'assets/audio/footstep5.mp3',
+            'assets/audio/footstep6.mp3'
         ];
         
         this.footstepAudio = new Audio();
