@@ -4,52 +4,62 @@ class Gallery {
             {
                 url: 'assets/artworks/1.png',
                 title: '1. A Brand New Start',
-                poem: 'One step away, the world rewinds,\nyet forward pulls the tethered mind.\nDreams outweigh the fear of loss.'
+                poem: 'One step away, the world rewinds,\nyet forward pulls the tethered mind.\nDreams outweigh the fear of loss.',
+                voiceOver: 'assets/audio/voiceovers/1.mp3'
             },
             {
                 url: 'assets/artworks/2.png',
                 title: '2. The First Night',
-                poem: 'Shadows stretch across the floor,\nthe quiet hums of home no more.\nA small keepsake comforts what I miss.'
+                poem: 'Shadows stretch across the floor,\nthe quiet hums of home no more.\nA small keepsake comforts what I miss.',
+                voiceOver: 'assets/audio/voiceovers/2.mp3'
             },
             {
                 url: 'assets/artworks/3.png',
                 title: '3. The First Conversations',
-                poem: 'Strangers\' smiles both near and far,\na hesitant hand waves from afar.\nThe first brick of a new home.'
+                poem: 'Strangers\' smiles both near and far,\na hesitant hand waves from afar.\nThe first brick of a new home.',
+                voiceOver: 'assets/audio/voiceovers/3.mp3'
             },
             {
                 url: 'assets/artworks/4.png',
                 title: '4. The First Grocery Trip',
-                poem: 'Strange new signs and foreign brands,\na careful count of coins in hand.\nA new world bought one item at a time.'
+                poem: 'Strange new signs and foreign brands,\na careful count of coins in hand.\nA new world bought one item at a time.',
+                voiceOver: 'assets/audio/voiceovers/4.mp3'
             },
             {
                 url: 'assets/artworks/5.png',
                 title: '5. The Quiet Battle',
-                poem: 'Pages blur, the hours bend,\na mind that strains to comprehend.\nFueled by a promise I made.'
+                poem: 'Pages blur, the hours bend,\na mind that strains to comprehend.\nFueled by a promise I made.',
+                voiceOver: 'assets/audio/voiceovers/5.mp3'
             },
             {
                 url: 'assets/artworks/6.png',
-                title: '6. Where the Walls Fall',
-                poem: 'Whispered stories, shared a laugh,\nthe turning point of a new path.\nWhere friendships start and walls fall down.'
+                title: '6. Where Walls Fall',
+                poem: 'Whispered stories, shared a laugh,\nthe turning point of a new path.\nWhere friendships start and walls fall down.',
+                voiceOver: 'assets/audio/voiceovers/6.mp3'
             },
             {
                 url: 'assets/artworks/7.png',
                 title: '7. The Call Between Two Worlds',
-                poem: 'Their smiles flicker, soft and near,\nyet vanish when the call grows clear.\nRoots can reach across the sea.'
+                poem: 'Their smiles flicker, soft and near,\nyet vanish when the call grows clear.\nRoots can reach across the sea.',
+                voiceOver: 'assets/audio/voiceovers/7.mp3'
             },
             {
                 url: 'assets/artworks/8.png',
                 title: '8. The Quiet Triumph',
-                poem: 'Effort spent and trials faced,\nthe mark of struggle now embraced.\nA quiet triumph hums within.'
+                poem: 'Effort spent and trials faced,\nthe mark of struggle now embraced.\nA quiet triumph hums within.',
+                voiceOver: 'assets/audio/voiceovers/8.mp3'
             },
             {
                 url: 'assets/artworks/9.png',
                 title: '9. The Shared Table',
-                poem: 'Voices mingle, stories unfold,\nwarmth blossoms in the midst of cold.\nNew roots grow where kindness clings.'
+                poem: 'Voices mingle, stories unfold,\nwarmth blossoms in the midst of cold.\nNew roots grow where kindness clings.',
+                voiceOver: 'assets/audio/voiceovers/9.mp3'
             },
             {
                 url: 'assets/artworks/10.png',
                 title: '10. The Changed Man',
-                poem: 'The snow falls soft on paths I\'ve known,\na changed man now stands alone.\nTwo worlds are woven in my soul.'
+                poem: 'The snow falls soft on paths I\'ve known,\na changed man now stands alone.\nTwo worlds are woven in my soul.',
+                voiceOver: 'assets/audio/voiceovers/10.mp3'
             }
         ];
         

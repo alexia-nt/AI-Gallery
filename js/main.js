@@ -77,7 +77,7 @@ class GalleryApp {
 
     setupEventListeners() {
         this.uiManager.setupControlsListeners(this.controls);
-        this.uiManager.setupModalListeners(this.controls);
+        this.uiManager.setupModalListeners(this.controls, this.audioManager);
         this.audioManager.setupKeyboardListeners();
         
         // Window resize
@@ -89,7 +89,7 @@ class GalleryApp {
 
         // ESC key to exit pointer lock
         document.addEventListener('keydown', (event) => {
-            if (event.code === 'Escape') {
+            if (event.code === 'Escape' && !this.uiManager.isModalOpen) {
                 this.controls.unlock();
             }
         });
@@ -160,7 +160,6 @@ class GalleryApp {
                 if (galleryIntersects.length > 0) {
                     const clickedObject = galleryIntersects[0].object;
                     this.uiManager.showArtworkModal(clickedObject.userData);
-                    this.controls.unlock();
                     return;
                 }
 
@@ -173,7 +172,6 @@ class GalleryApp {
                         const clickedModel = modelIntersects[0].object;
                         if (clickedModel.userData && clickedModel.userData.title) {
                             this.uiManager.showArtworkModal(clickedModel.userData);
-                            this.controls.unlock();
                         }
                     }
                 }

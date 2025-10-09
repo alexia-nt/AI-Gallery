@@ -150,3 +150,17 @@ canvas {
         font-size: 0.8rem;
     }
 }
+
+#voice-over-instruction {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #4CAF50;
+    font-style: normal;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
