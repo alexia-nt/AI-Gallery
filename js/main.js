@@ -56,18 +56,19 @@ class GalleryApp {
 
     async load3DModels() {
         try {
-            const roomHeight = this.room.getRoomDimensions().height;
-            const sculpture = await this.modelManager.loadSculpture(this.scene, roomHeight);
+            const roomDimensions = this.room.getRoomDimensions();
+            const modelConfigs = this.modelManager.getGalleryModelConfigs(roomDimensions);
             
-            if (sculpture) {
-                this.scene.add(sculpture);
-                this.modelBoundingBox = this.modelManager.createBoundingBox(sculpture);
-                console.log('3D sculpture loaded successfully');
-            } else {
-                console.warn('No sculpture model found, continuing without 3D model');
-            }
+            const loadedModels = await this.modelManager.loadMultipleModels(modelConfigs);
+            
+            // Add all models to the scene
+            loadedModels.forEach(model => {
+                this.scene.add(model);
+                console.log(`Added model to scene: ${model.userData?.title || 'Unknown'}`);
+            });
             
             this.isModelsLoaded = true;
+            console.log(`Successfully loaded ${loadedModels.length} 3D models`);
             
         } catch (error) {
             console.error('Failed to load 3D models:', error);
@@ -166,12 +167,20 @@ class GalleryApp {
                 // Check 3D models if loaded
                 if (this.isModelsLoaded) {
                     const models = this.modelManager.getAllModels();
-                    const modelIntersects = this.raycaster.intersectObjects(models);
+                    const modelIntersects = this.raycaster.intersectObjects(models, true);
 
                     if (modelIntersects.length > 0) {
                         const clickedModel = modelIntersects[0].object;
-                        if (clickedModel.userData && clickedModel.userData.title) {
-                            this.uiManager.showArtworkModal(clickedModel.userData);
+                        
+                        // Traverse up to find the parent with userData
+                        let target = clickedModel;
+                        while (target && !target.userData.title && target.parent) {
+                            target = target.parent;
+                        }
+
+                        // ONLY show modal if the model is interactive
+                        if (target && target.userData && target.userData.title && target.userData.isInteractive !== false) {
+                            this.uiManager.showArtworkModal(target.userData);
                         }
                     }
                 }
@@ -185,54 +194,21 @@ class GalleryApp {
         const halfRoomDepth = roomDims.depth / 2;
         const padding = 1.0;
 
-        // Model collision check
-        if (this.modelBoundingBox) {
-            const playerPos = this.camera.position;
-            const collisionBox = this.modelBoundingBox.clone();
+        // Check collisions with all 3D models - REMOVE the isInteractive check here
+        if (this.isModelsLoaded) {
+            const boundingBoxes = this.modelManager.getAllBoundingBoxes();
+            const models = this.modelManager.getAllModels();
             
-            // Add some padding to the collision box
-            const shrinkFactor = 0.8;
-            collisionBox.min.multiplyScalar(shrinkFactor);
-            collisionBox.max.multiplyScalar(shrinkFactor);
-            
-            if (collisionBox.containsPoint(playerPos)) {
-                const modelCenter = new THREE.Vector3();
-                collisionBox.getCenter(modelCenter);
-                
-                // Calculate distances to each face of the bounding box
-                const distances = [
-                    Math.abs(playerPos.x - collisionBox.min.x),
-                    Math.abs(playerPos.x - collisionBox.max.x),
-                    Math.abs(playerPos.z - collisionBox.min.z),
-                    Math.abs(playerPos.z - collisionBox.max.z)
-                ];
-                
-                const minDistance = Math.min(...distances);
-                const minIndex = distances.indexOf(minDistance);
-                
-                // Push player out of the collision based on the closest face
-                switch(minIndex) {
-                    case 0:
-                        this.camera.position.x = collisionBox.min.x - 0.1;
-                        break;
-                    case 1:
-                        this.camera.position.x = collisionBox.max.x + 0.1;
-                        break;
-                    case 2:
-                        this.camera.position.z = collisionBox.min.z - 0.1;
-                        break;
-                    case 3:
-                        this.camera.position.z = collisionBox.max.z + 0.1;
-                        break;
+            models.forEach(model => {
+                const boundingBox = boundingBoxes.get(model);
+                // Remove the isInteractive check - collision should work for ALL models
+                if (boundingBox) {
+                    this.checkModelCollision(boundingBox, model.userData.collisionPadding || 1.0);
                 }
-                
-                // Reset velocity to prevent sliding
-                this.velocity.x = 0;
-                this.velocity.z = 0;
-            }
+            });
         }
 
-        // Room boundary checks
+        // Room boundary checks (existing code)
         if (this.camera.position.x < -halfRoomWidth + padding) {
             this.camera.position.x = -halfRoomWidth + padding;
             this.velocity.x = 0;
@@ -251,6 +227,52 @@ class GalleryApp {
         }
     }
 
+    checkModelCollision(boundingBox, collisionPadding) {
+        const playerPos = this.camera.position;
+        const collisionBox = boundingBox.clone();
+        
+        // Apply collision padding
+        const paddingVector = new THREE.Vector3(collisionPadding, 0, collisionPadding);
+        collisionBox.min.sub(paddingVector);
+        collisionBox.max.add(paddingVector);
+        
+        if (collisionBox.containsPoint(playerPos)) {
+            const modelCenter = new THREE.Vector3();
+            collisionBox.getCenter(modelCenter);
+            
+            // Calculate distances to each face of the bounding box
+            const distances = [
+                Math.abs(playerPos.x - collisionBox.min.x),
+                Math.abs(playerPos.x - collisionBox.max.x),
+                Math.abs(playerPos.z - collisionBox.min.z),
+                Math.abs(playerPos.z - collisionBox.max.z)
+            ];
+            
+            const minDistance = Math.min(...distances);
+            const minIndex = distances.indexOf(minDistance);
+            
+            // Push player out of the collision based on the closest face
+            switch(minIndex) {
+                case 0:
+                    this.camera.position.x = collisionBox.min.x - 0.1;
+                    break;
+                case 1:
+                    this.camera.position.x = collisionBox.max.x + 0.1;
+                    break;
+                case 2:
+                    this.camera.position.z = collisionBox.min.z - 0.1;
+                    break;
+                case 3:
+                    this.camera.position.z = collisionBox.max.z + 0.1;
+                    break;
+            }
+            
+            // Reset velocity to prevent sliding
+            this.velocity.x = 0;
+            this.velocity.z = 0;
+        }
+    }
+
     updateRaycasting() {
         this.raycaster.setFromCamera(new THREE.Vector2(0, 0), this.camera);
         
@@ -264,14 +286,22 @@ class GalleryApp {
             isCursorActive = true;
         }
         
-        // Check 3D models if gallery objects weren't hit
+        // Check 3D models if gallery objects weren't hit - ADD 'true' HERE TOO
         if (!isCursorActive && this.isModelsLoaded) {
             const models = this.modelManager.getAllModels();
-            const modelIntersects = this.raycaster.intersectObjects(models);
+            const modelIntersects = this.raycaster.intersectObjects(models, true); // ← ADD THIS 'true'
             
             if (modelIntersects.length > 0) {
                 const hitModel = modelIntersects[0].object;
-                if (hitModel.userData && hitModel.userData.title) {
+                
+                // Traverse up to find the parent with userData
+                let target = hitModel;
+                while (target && !target.userData.title && target.parent) {
+                    target = target.parent;
+                }
+                
+                // Only show cursor for interactive models
+                if (target && target.userData && target.userData.title && target.userData.isInteractive !== false) {
                     isCursorActive = true;
                 }
             }
