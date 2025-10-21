@@ -144,8 +144,9 @@ class ModelManager {
                 collisionPadding: 1.2,
                 userData: {
                     title: "Miffy (Nijntje) Plush",
-                    poem: "You found the miffy plush!",
-                    voiceOver: 'assets/audio/voiceovers/suitcase1.mp3',
+                    poem: "Well spotted! You discovered the miffy plush!\nThis little bunny was waiting for someone\nwith a keen eye to click on it!",
+                    voiceOver: 'assets/audio/voiceovers/miffy.mp3',
+                    url: 'assets/artworks/miffy.png',
                     isInteractive: true
                 }
             }
