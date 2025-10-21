@@ -135,6 +135,19 @@ class ModelManager {
                     voiceOver: 'assets/audio/voiceovers/suitcase1.mp3',
                     isInteractive: false
                 }
+            },
+            {
+                url: 'assets/models/miffy.glb',
+                position: new THREE.Vector3(23, -roomDimensions.height / 2 + 14, -31),
+                scale: 2,
+                rotation: new THREE.Euler(0, Math.PI / 4 - 1.5, 0),
+                collisionPadding: 1.2,
+                userData: {
+                    title: "Miffy (Nijntje) Plush",
+                    poem: "You found the miffy plush!",
+                    voiceOver: 'assets/audio/voiceovers/suitcase1.mp3',
+                    isInteractive: true
+                }
             }
             // Add more models here as needed
         ];
