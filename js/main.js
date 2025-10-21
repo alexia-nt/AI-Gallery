@@ -231,46 +231,63 @@ class GalleryApp {
         const playerPos = this.camera.position;
         const collisionBox = boundingBox.clone();
         
-        // Apply collision padding
+        // Apply collision padding only on X and Z axes
         const paddingVector = new THREE.Vector3(collisionPadding, 0, collisionPadding);
         collisionBox.min.sub(paddingVector);
         collisionBox.max.add(paddingVector);
         
-        if (collisionBox.containsPoint(playerPos)) {
-            const modelCenter = new THREE.Vector3();
-            collisionBox.getCenter(modelCenter);
-            
-            // Calculate distances to each face of the bounding box
-            const distances = [
-                Math.abs(playerPos.x - collisionBox.min.x),
-                Math.abs(playerPos.x - collisionBox.max.x),
-                Math.abs(playerPos.z - collisionBox.min.z),
-                Math.abs(playerPos.z - collisionBox.max.z)
-            ];
-            
-            const minDistance = Math.min(...distances);
-            const minIndex = distances.indexOf(minDistance);
-            
-            // Push player out of the collision based on the closest face
-            switch(minIndex) {
-                case 0:
-                    this.camera.position.x = collisionBox.min.x - 0.1;
-                    break;
-                case 1:
-                    this.camera.position.x = collisionBox.max.x + 0.1;
-                    break;
-                case 2:
-                    this.camera.position.z = collisionBox.min.z - 0.1;
-                    break;
-                case 3:
-                    this.camera.position.z = collisionBox.max.z + 0.1;
-                    break;
-            }
-            
-            // Reset velocity to prevent sliding
-            this.velocity.x = 0;
-            this.velocity.z = 0;
+        // Create a "player collision volume" - a box representing the player's body
+        const playerHeight = 10; // Adjust based on your camera height
+        const playerRadius = 2; // How wide the player is
+        
+        const playerCollisionBox = new THREE.Box3(
+            new THREE.Vector3(
+                playerPos.x - playerRadius,
+                playerPos.y - playerHeight / 2, // Bottom of player
+                playerPos.z - playerRadius
+            ),
+            new THREE.Vector3(
+                playerPos.x + playerRadius,
+                playerPos.y + playerHeight / 2, // Top of player
+                playerPos.z + playerRadius
+            )
+        );
+        
+        // Check if player collision box intersects with model collision box
+        if (playerCollisionBox.intersectsBox(collisionBox)) {
+            this.resolveCollision(playerCollisionBox, collisionBox, playerPos);
         }
+    }
+
+    resolveCollision(playerBox, modelBox, playerPos) {
+        // Calculate overlap on each axis
+        const overlaps = {
+            left: playerBox.max.x - modelBox.min.x,
+            right: modelBox.max.x - playerBox.min.x,
+            front: playerBox.max.z - modelBox.min.z,
+            back: modelBox.max.z - playerBox.min.z
+        };
+        
+        // Find the minimum overlap (the direction to push out)
+        const minOverlap = Math.min(
+            overlaps.left, overlaps.right,
+            overlaps.front, overlaps.back
+        );
+        
+        // Push player out in the direction of minimum overlap
+        if (minOverlap === overlaps.left) {
+            this.camera.position.x = modelBox.min.x - (playerBox.max.x - playerBox.min.x) / 2 - 0.1;
+        } else if (minOverlap === overlaps.right) {
+            this.camera.position.x = modelBox.max.x + (playerBox.max.x - playerBox.min.x) / 2 + 0.1;
+        } else if (minOverlap === overlaps.front) {
+            this.camera.position.z = modelBox.min.z - (playerBox.max.z - playerBox.min.z) / 2 - 0.1;
+        } else if (minOverlap === overlaps.back) {
+            this.camera.position.z = modelBox.max.z + (playerBox.max.z - playerBox.min.z) / 2 + 0.1;
+        }
+        
+        // Reset velocity to prevent sliding
+        this.velocity.x = 0;
+        this.velocity.z = 0;
     }
 
     updateRaycasting() {

@@ -85,15 +85,28 @@ class ModelManager {
             //     }
             // },
             {
-                url: 'assets/models/yourModel.glb',
-                position: new THREE.Vector3(15, -roomDimensions.height / 2 + 11, 10),
-                scale: 10,
-                rotation: new THREE.Euler(0, Math.PI / 4, 0),
+                url: 'assets/models/house1.glb',
+                position: new THREE.Vector3(-21, -roomDimensions.height / 2 + 11, -32),
+                scale: 13,
+                rotation: new THREE.Euler(0, Math.PI / 4 + 0.3, 0),
                 collisionPadding: 1.2,
                 userData: {
-                    title: "Ancient Sculpture",
-                    poem: "A mysterious ancient sculpture.",
-                    voiceOver: 'assets/audio/voiceovers/sculpture1.mp3',
+                    title: "House Sculpture",
+                    poem: "A house sculpture.",
+                    voiceOver: 'assets/audio/voiceovers/house1.mp3',
+                    isInteractive: false
+                }
+            },
+            {
+                url: 'assets/models/suitcase_yellow.glb',
+                position: new THREE.Vector3(22, -roomDimensions.height / 2 + 8, -32),
+                scale: 7,
+                rotation: new THREE.Euler(0, Math.PI / 4 - 1.5, 0),
+                collisionPadding: 1.2,
+                userData: {
+                    title: "Suitace Sculpture",
+                    poem: "A yellow suitace.",
+                    voiceOver: 'assets/audio/voiceovers/suitcase1.mp3',
                     isInteractive: false
                 }
             }
