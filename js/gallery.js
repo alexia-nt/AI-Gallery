@@ -91,7 +91,7 @@ class Gallery {
         scene.add(this.createPicturePlane(
             this.artworks[9], 
             picSize, picSize, 
-            new THREE.Vector3(-roomWidth / 2 + 1, picHeight, -20), 
+            new THREE.Vector3(-roomWidth / 2 + 1, picHeight, -18), 
             new THREE.Euler(0, halfPI, 0)
         ));
         
@@ -105,7 +105,7 @@ class Gallery {
         scene.add(this.createPicturePlane(
             this.artworks[7], 
             picSize, picSize, 
-            new THREE.Vector3(-roomWidth / 2 + 1, picHeight, 20), 
+            new THREE.Vector3(-roomWidth / 2 + 1, picHeight, 18), 
             new THREE.Euler(0, halfPI, 0)
         ));
 
@@ -113,7 +113,7 @@ class Gallery {
         scene.add(this.createPicturePlane(
             this.artworks[2], 
             picSize, picSize, 
-            new THREE.Vector3(roomWidth / 2 - 1, picHeight, -20), 
+            new THREE.Vector3(roomWidth / 2 - 1, picHeight, -19), 
             new THREE.Euler(0, -halfPI, 0)
         ));
         
@@ -127,7 +127,7 @@ class Gallery {
         scene.add(this.createPicturePlane(
             this.artworks[4], 
             picSize, picSize, 
-            new THREE.Vector3(roomWidth / 2 - 1, picHeight, 20), 
+            new THREE.Vector3(roomWidth / 2 - 1, picHeight, 19), 
             new THREE.Euler(0, -halfPI, 0)
         ));
 
@@ -135,14 +135,14 @@ class Gallery {
         scene.add(this.createPicturePlane(
             this.artworks[0], 
             picSize, picSize, 
-            new THREE.Vector3(-12, picHeight, -roomDepth / 2 + 1), 
+            new THREE.Vector3(-10, picHeight, -roomDepth / 2 + 1), 
             new THREE.Euler(0, 0, 0)
         ));
         
         scene.add(this.createPicturePlane(
             this.artworks[1], 
             picSize, picSize, 
-            new THREE.Vector3(12, picHeight, -roomDepth / 2 + 1), 
+            new THREE.Vector3(10, picHeight, -roomDepth / 2 + 1), 
             new THREE.Euler(0, 0, 0)
         ));
 
@@ -150,14 +150,14 @@ class Gallery {
         scene.add(this.createPicturePlane(
             this.artworks[6], 
             picSize, picSize, 
-            new THREE.Vector3(-19, picHeight, roomDepth / 2 - 1), 
+            new THREE.Vector3(-17, picHeight, roomDepth / 2 - 1), 
             new THREE.Euler(0, Math.PI, 0)
         ));
         
         scene.add(this.createPicturePlane(
             this.artworks[5], 
             picSize, picSize, 
-            new THREE.Vector3(19, picHeight, roomDepth / 2 - 1), 
+            new THREE.Vector3(17, picHeight, roomDepth / 2 - 1), 
             new THREE.Euler(0, Math.PI, 0)
         ));
         

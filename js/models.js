@@ -109,6 +109,32 @@ class ModelManager {
                     voiceOver: 'assets/audio/voiceovers/suitcase1.mp3',
                     isInteractive: false
                 }
+            },
+            {
+                url: 'assets/models/house2.glb',
+                position: new THREE.Vector3(23, -roomDimensions.height / 2 + 9.5, 32),
+                scale: 13,
+                rotation: new THREE.Euler(0, Math.PI / 4 + 3, 0),
+                collisionPadding: 1.2,
+                userData: {
+                    title: "House Sculpture",
+                    poem: "A house sculpture.",
+                    voiceOver: 'assets/audio/voiceovers/house1.mp3',
+                    isInteractive: false
+                }
+            },
+            {
+                url: 'assets/models/suitcase_blue.glb',
+                position: new THREE.Vector3(-23, -roomDimensions.height / 2 + 7.5, 32),
+                scale: 7,
+                rotation: new THREE.Euler(0, Math.PI / 4 + 1.2, 0),
+                collisionPadding: 1.2,
+                userData: {
+                    title: "Suitace Sculpture",
+                    poem: "A yellow suitace.",
+                    voiceOver: 'assets/audio/voiceovers/suitcase1.mp3',
+                    isInteractive: false
+                }
             }
             // Add more models here as needed
         ];
