@@ -1,8 +1,9 @@
 class AudioManager {
     constructor() {
-        this.bgMusic = new Audio('assets/audio/background.mp3');
+        // this.bgMusic = new Audio('assets/audio/background.mp3');
+        this.bgMusic = new Audio('assets/audio/ai_music/background_game.mp3');
         this.bgMusic.loop = true;
-        this.bgMusic.volume = 0.5;
+        this.bgMusic.volume = 0.2;
         
         this.footstepFiles = [
             'assets/audio/footstep4.mp3',
@@ -17,7 +18,7 @@ class AudioManager {
 
         // Voice-over properties
         this.voiceOverAudio = new Audio();
-        this.voiceOverAudio.volume = 0.8;
+        this.voiceOverAudio.volume = 0.7;
         this.currentVoiceOver = null;
         this.isVoiceOverPlaying = false;
 
