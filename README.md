@@ -4,7 +4,9 @@ An immersive **WebGL 3D art gallery** built with **Three.js**, featuring walkabl
 
 Users can freely explore the virtual gallery, view artworks, and interact with sculptures by clicking on them.
 
-**The Question:** Can you find the secret easter egg hidden somewhere in the gallery? Only the most observant visitors will discover this!
+**Video Presentation:** [here](https://www.youtube.com/watch?v=rivZKUcqJ2s).
+
+**Challenge:** Can you find the secret easter egg hidden somewhere in the gallery? Only the most observant visitors will discover this!
 
 **Hint:** What you are looking for can actually be associated with easter eggs (😉) and can be connected to the second artwork (The First Night).
 
